@@ -5,7 +5,7 @@ import sys
 
 found_ips = {}
 
-def argument_parse():
+def argument_parse(): # argument parser + --help message 
     pars = argparse.ArgumentParser(
             prog='Log Parser on REGEX basis',
             description='A small log parser for Linux logs',
@@ -28,10 +28,25 @@ def argument_parse():
 
     return pars.parse_args()
 
-def log_parsing(file_path):
+def log_parsing(file_path,alerttype):
     with open(file_path,"r") as log:
         for line in log:
-            pass
+            if alerttype in line: # Alert filter in lines
+                regex_pattern = re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b',line) # IP regex pattern, not perfect, 999.999.999 would work as well, needs changing in further versions
+                for ip in regex_pattern:
+                    if ip in found_ips:
+                        found_ips[ip] += 1 # if IP exists adds value in dictionary
+                    else:
+                        found_ips[ip] = 1 # if does not exist, adds key and value into the dictionary
+
+def print_output(ips_dict,errortype):
+    for key, value in ips_dict.items():
+        if value >= 5:
+            print(f" IP-Address {key} has been alerted with {errortype} 5 or more times and requiers further investigation")
+
+
+def api_hook(ip_addr):
+    pass
 
 if __name__ == "__main__":
     argument_parse()
