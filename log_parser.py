@@ -2,6 +2,8 @@ import os
 import re
 import argparse
 import sys
+import requests
+import json
 
 found_ips = {}
 
@@ -44,9 +46,29 @@ def print_output(ips_dict,errortype):
         if value >= 5:
             print(f" IP-Address {key} has been alerted with {errortype} 5 or more times and requiers further investigation")
 
-
 def api_hook(ip_addr):
-    pass
+    api_url = "https://api.abuseipdb.com/api/v2/check"
+    api_key = os.environ.get("ABUSEIPDB_KEY")
+    response = requests.get(api_url, headers={"Key": api_key, "Accept": "application/json"}, params={"ipAddress": ip_addr, "maxAgeInDays":90})
+
+    if response.status_code == 200:
+        response_data = response.json()["data"]
+        print(f"IP: {response_data['ipAddress']}")
+        print(f"Abuse Score: {response_data['abuseConfidenceScore']}")
+        print(f"Country: {response_data['countryCode']}")
+        print(f"ISP: {response_data['isp']}")
+        print(f"Total Reports: {response_data['totalReports']}")
+
+    else:
+        print(f"Error: {response.status_code}")
 
 if __name__ == "__main__":
-    argument_parse()
+    args = argument_parse()
+    log_parsing(args.filename, args.alert_type)
+    print_output(found_ips, args.alert_type)
+    for ip in found_ips:
+        api_hook(ip)
+        
+
+
+
