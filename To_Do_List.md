@@ -16,3 +16,6 @@
 
 07.03.2026
 - [ ] Add graphical representation (future)
+- [ ] Error handling
+- [ ] Edge cases exceptions
+- [ ] Local vs Public Ip check
