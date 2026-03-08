@@ -3,15 +3,16 @@
 
 - [x]  Implement Regex logic
 - [x] Check Argparse --help Functionality
-- [ ] Add API AbuseIPDB query
+- [x] Add API AbuseIPDB query
 - [x] Polish overall code look
 - [x] Add comments in the code 
 
 06.03.2026
 
 - [x] Add dummy output function for more then 5 alerts on single ip
-- [ ] finish API function
-- [ ] Finish Main section
+- [x] finish API function
+- [x] Finish Main section
 - [ ] Run tests on different samples
 
-
+07.03.2026
+- [ ] Add graphical representation (future)
