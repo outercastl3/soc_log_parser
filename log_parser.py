@@ -57,7 +57,7 @@ def print_output(ips_dict,errortype):
 
 def is_private_ip(ip):
     private_ranges = ["192.168.", "10.", "172.16.", "127."]
-    return any(ip.startwith(r) for r in private_ranges)
+    return any(ip.startswith(r) for r in private_ranges)
 
 def api_hook(ip_addr):
     api_url = "https://api.abuseipdb.com/api/v2/check"
