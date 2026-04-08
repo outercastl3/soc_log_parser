@@ -24,8 +24,8 @@ def argument_parse(): # argument parser + --help message
     pars.add_argument(
             "-a", "--alert_type",
             required=True,
-            choices=["ERROR","INFO","WARNING","DEBUG","CRITICAL"],
-            help="Choose your alert type: ERROR, INFO, WARNING, DEBUG, CRITICAL"
+            choices=["ERROR","INFO","WARNING","DEBUG","CRITICAL","Failed","Accepted"],
+            help="Choose your alert type: ERROR, INFO, WARNING, DEBUG, CRITICAL,Failed,Accepted"
             )
 
     return pars.parse_args()
