@@ -35,7 +35,7 @@ def log_parsing(file_path,alerttype):
         with open(file_path,"r") as log:
             for line in log:
                 if alerttype in line: # Alert filter in lines
-                    regex_pattern = re.findall(r'\b(?:\d{1,3}\.){3}\d{1,3}\b',line) # IP regex pattern, not perfect, 999.999.999 would work as well, needs changing in further versions
+                    regex_pattern = re.findall(r'\b(?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\b',line)
                     for ip in regex_pattern:
                         if ip in found_ips:
                             found_ips[ip] += 1 # if IP exists adds value in dictionary
